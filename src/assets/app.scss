@@ -4,6 +4,9 @@
 // Import Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// animated css
+@import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.css";
+
 // Import Custom SB Admin 2 Mixins and Components
 @import "mixins.scss";
 @import "global.scss";

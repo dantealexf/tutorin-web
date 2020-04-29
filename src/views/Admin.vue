@@ -7,81 +7,24 @@
             <!-- Main Content -->
             <div id="content">
 
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                 aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                               placeholder="Search for..." aria-label="Search"
-                                               aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <template v-if="$store.state.auth">
-                            <!-- Nav Item - User Information -->
-                            <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $store.state.user.name }}</span>
-                                    <img class="img-profile rounded-circle"
-                                         src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-                                </a>
-                                <!-- Dropdown - User Information -->
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                     aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Perfil
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal" @click="logout">
-                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Cerrar Sesión
-                                    </a>
-                                </div>
-                            </li>
-                        </template>
-                        <template v-else>
-                            NO HA INICIADO
-                        </template>
-
-                    </ul>
-
-                </nav>
-                <!-- End of Topbar -->
+                <NavBar></NavBar>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+                    <Dashboard v-if="this.$store.state.option_type === 'dash'"></Dashboard>
+                    <Student v-if="this.$store.state.option_type === 'student'"></Student>
+                    <Category v-else-if="this.$store.state.option_type === 'category'"></Category>
+                    <Tag v-else-if="this.$store.state.option_type === 'tag'"></Tag>
+                    <Group v-else-if="this.$store.state.option_type === 'group'"></Group>
+                    <Teacher v-else-if="this.$store.state.option_type === 'teacher'"></Teacher>
+
+                    <!--- Formularios --->
+                    <FormStudent v-else-if="this.$store.state.option_type === 'formStudent'"></FormStudent>
+                    <EditStudent v-else-if="this.$store.state.option_type === 'editStudent'"></EditStudent>
+                    <Profile v-else-if="this.$store.state.option_type === 'profile'"></Profile>
+                    <ProfileTeacher v-else-if="this.$store.state.option_type === 'profileteacher'"></ProfileTeacher>
+                    <!--- Fin de formularios --->
 
                 </div>
                 <!-- /.container-fluid -->
@@ -109,18 +52,28 @@
 
 <script>
     import Sidebar from "@/components/Sidebar.vue";
+    import NavBar from "@/components/NavBar.vue";
+    import Dashboard from "@/components/Dashboard.vue";
+    import Category from "@/components/Categories.vue";
+    import Tag from "@/components/Tags.vue";
+    import Group from "@/components/Groups.vue";
+    import Student from "@/components/Students.vue";
+    import Teacher from "@/components/Teachers.vue";
+    import FormStudent from "@/components/FormStudent.vue";
+    import EditStudent from "@/components/EditStudent.vue";
+    import Profile from "@/components/Profile.vue";
+    import ProfileTeacher from "@/components/ProfileTeacher.vue";
 
     export default {
         name: "Admin",
         components: {
-            Sidebar
+            Sidebar, NavBar,Category,Dashboard,Tag,Group,Teacher,Student,FormStudent,EditStudent,Profile,ProfileTeacher
         },
-        methods:{
-            async logout() {
-                await this.$store.dispatch("logout");
-                return  this.$router.replace("/login");
-            },
-        }
+        data: () => ({
+            option_type:'dash',
+        }),
+        methods: {
 
-    };
+        },
+    }
 </script>

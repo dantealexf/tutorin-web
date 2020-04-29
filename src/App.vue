@@ -1,5 +1,7 @@
 <template>
     <div id="app">
-        <router-view />
+        <transition name="router-anim" enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
+            <router-view/>
+        </transition>
     </div>
 </template>

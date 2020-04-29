@@ -16,7 +16,7 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
+        <li class="nav-item" @click="toggleVisibleOptionSidebar('dash')">
             <a class="nav-link" href="#">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
@@ -44,6 +44,12 @@
                 <span>Asesorias</span></a>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="fas fa-list"></i>
+                <span>Cursos</span></a>
+        </li>
+
         <!-- Divider -->
         <hr class="sidebar-divider">
 
@@ -54,17 +60,23 @@
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
+        <li class="nav-item" @click="toggleVisibleOptionSidebar('student')">
             <a class="nav-link" href="#">
                 <i class="fas fa-fw fa-user-graduate"></i>
                 <span>Estudiantes</span></a>
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
+        <li class="nav-item" @click="toggleVisibleOptionSidebar('teacher')">
             <a class="nav-link" href="#">
                 <i class="fas fa-fw fa-chalkboard-teacher"></i>
                 <span>Profesores</span></a>
+        </li>
+
+        <li class="nav-item" @click="toggleVisibleOptionSidebar('group')">
+            <a class="nav-link" href="#">
+                <i class="fas fa-users"></i>
+                <span>Grupos</span></a>
         </li>
 
         <!-- Divider -->
@@ -76,23 +88,16 @@
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
+        <li class="nav-item" @click="toggleVisibleOptionSidebar('category')">
             <a class="nav-link" href="#">
                 <i class="fas fa-tags"></i>
                 <span>Categorias</span></a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" @click="toggleVisibleOptionSidebar('tag')">
             <a class="nav-link" href="#">
                 <i class="fas fa-hashtag"></i>
                 <span>Etiquetas</span></a>
-        </li>
-
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Habilidades</span></a>
         </li>
 
         <!-- Divider -->
@@ -121,6 +126,9 @@
                 const body = document.body;
                 this.visible = !this.visible;
                 body.classList.add('sidebar-toggled');
+            },
+            toggleVisibleOptionSidebar(option_name){
+                this.$store.dispatch("toggleVisibleNavBar",option_name);
             }
         }
     };
